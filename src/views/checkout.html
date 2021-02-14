@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Page Title</title>
+</head>
+<body>
+  <script src="https://www.paypal.com/sdk/js?client-id="></script>
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <div id="paypal-button"></div>
+  <div id="result">result</div>
+  
+  <script>
+    paypal.Buttons({
+      env: 'sandbox', // Or 'production'
+      // Set up the payment:
+      // 1. Add a payment callback
+      createOrder: async (data, actions) => {
+        return actions.order.create({
+          purchase_units: [{
+            amount: { value: '1' }
+          }]
+        })
+      },
+      onApprove: async (data, actions) => {
+        const details = await actions.order.capture();
+        console.log(details);
+        await axios({
+          url: 'http://localhost:4000/paypal/complete',
+          method: 'post',
+          data: details
+        })
+        return details;
+      }
+    }).render('#paypal-button');
+  </script>
+</body>
+</html>
