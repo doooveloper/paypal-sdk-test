@@ -6,7 +6,6 @@ const router = express.Router();
 
 router.all('/product/create', async (req, res) => {
   try {
-    console.log('into create product');
     const createdProduct = await axios({
       url: 'https://api-m.sandbox.paypal.com/v1/catalogs/products',
       method: 'post',
@@ -30,5 +29,28 @@ router.all('/product/create', async (req, res) => {
     console.error(err);
   }
 });
+
+router.all('/plan/create', async (req, res) => {
+  try {
+    const createdProduct = await axios({
+      url: 'https://api-m.sandbox.paypal.com/v1/billing/plans',
+      method: 'post',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      auth: {
+        username: mandatoryFilter('BASIC_AUTH_USERNAME'),
+        password: mandatoryFilter('BASIC_AUTH_PASSWORD')
+      },
+      data: {
+        product_id: 'PROD-09E48499F23919105',
+        name: '정기결제',
+        
+      }
+    });
+  } catch (err) {
+    console.error(err);
+  }
+})
 
 export default router;
