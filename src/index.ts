@@ -1,7 +1,7 @@
 import 'dotenv/config';
 import express from 'express';
 import cors from 'cors';
-import { checkoutRouter, subscriptionRouter, viewRouter } from './routers';
+import { checkoutRouter, subscriptionRouter, viewRouter, webhookRouter } from './routers';
 
 (async () => {
   const app = express();
@@ -13,7 +13,7 @@ import { checkoutRouter, subscriptionRouter, viewRouter } from './routers';
   app.use(express.static(`${__dirname}/views`));
   app.use('/checkout', checkoutRouter);
   app.use('/subscription', subscriptionRouter);
+  app.use('/webhook', webhookRouter);
 
-  
   app.listen(3000, () => console.log('listen 3000'));
 })();
