@@ -45,7 +45,23 @@ router.all('/plan/create', async (req, res) => {
       data: {
         product_id: 'PROD-09E48499F23919105',
         name: '정기결제',
-        
+        billig_cycles: [
+          {
+            frequency: {
+              interval_unit: 'DAY',
+              interval_count: 1
+            },
+            tenure_type: 'TRIAL',
+            sequence: 1,
+            total_cycles: 2,
+            pricing_schema: {
+              fixed_price: {
+                value: 10,
+                currency_code: 'USD'
+              }
+            }
+          }
+        ]
       }
     });
   } catch (err) {
