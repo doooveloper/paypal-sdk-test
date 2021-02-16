@@ -43,7 +43,7 @@ router.all('/plan/create', async (req, res) => {
         password: mandatoryFilter('BASIC_AUTH_PASSWORD')
       },
       data: {
-        product_id: 'PROD-6MS07618AN5499408',
+        product_id: 'PROD-08S50832TE343664S',
         name: 'test',
         status: 'ACTIVE',
         billing_cycles: [
@@ -58,7 +58,7 @@ router.all('/plan/create', async (req, res) => {
             total_cycles: 2,
             pricing_scheme: {
               fixed_price: {
-                value: '10',
+                value: '50',
                 currency_code: 'USD'
               }
             }
