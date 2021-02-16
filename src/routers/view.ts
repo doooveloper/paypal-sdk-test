@@ -6,7 +6,7 @@ router.get('/checkout', (req, res) => {
   res.render('checkout');
 });
 
-router.get('subscription', (req, res) => {
+router.get('/subscription', (req, res) => {
   res.render('subscription');
 });
 

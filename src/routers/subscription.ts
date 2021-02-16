@@ -32,7 +32,7 @@ router.all('/product/create', async (req, res) => {
 
 router.all('/plan/create', async (req, res) => {
   try {
-    const createdProduct = await axios({
+    const createdPlan = await axios({
       url: 'https://api-m.sandbox.paypal.com/v1/billing/plans',
       method: 'post',
       headers: {
@@ -43,27 +43,54 @@ router.all('/plan/create', async (req, res) => {
         password: mandatoryFilter('BASIC_AUTH_PASSWORD')
       },
       data: {
-        product_id: 'PROD-09E48499F23919105',
-        name: '정기결제',
-        billig_cycles: [
+        product_id: 'PROD-6MS07618AN5499408',
+        name: 'test',
+        status: 'ACTIVE',
+        billing_cycles: [
+          
           {
             frequency: {
-              interval_unit: 'DAY',
+              interval_unit: 'MONTH',
               interval_count: 1
             },
             tenure_type: 'TRIAL',
             sequence: 1,
             total_cycles: 2,
-            pricing_schema: {
+            pricing_scheme: {
               fixed_price: {
-                value: 10,
+                value: '10',
+                currency_code: 'USD'
+              }
+            }
+          },
+          {
+            frequency: {
+              interval_unit: 'MONTH',
+              interval_count: 1
+            },
+            tenure_type: 'REGULAR',
+            sequence: 2,
+            total_cycles: 0,
+            pricing_scheme: {
+              fixed_price: {
+                value: '100',
                 currency_code: 'USD'
               }
             }
           }
-        ]
+        ],
+        payment_preferences: {
+          auto_bill_outstanding: false
+        },
+        taxes: {
+          percentage: 10,
+          inclusive: false
+        }
       }
     });
+
+    console.log(createdPlan.data);
+    res.status(200).json(createdPlan.data);
   } catch (err) {
     console.error(err);
   }

@@ -10,12 +10,9 @@ import { checkoutRouter, subscriptionRouter, viewRouter } from './routers';
   app.use(express.urlencoded({ extended: true }));
   app.use(cors());
 
-  app.set('views', `${__dirname}/views`);
-  app.set('view engine', 'html');
-
+  app.use(express.static(`${__dirname}/views`));
   app.use('/checkout', checkoutRouter);
   app.use('/subscription', subscriptionRouter);
-  app.use('/', viewRouter);
 
   
   app.listen(3000, () => console.log('listen 3000'));
